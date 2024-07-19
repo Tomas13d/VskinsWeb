@@ -1,95 +1,47 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import PrimarySearchAppBar from "./Components/Navbar";
+import CartDrawer from "./Components/CartDrawer";
+import { useState } from "react";
+import { createTheme, ThemeProvider } from "@mui/material";
+import Carousel from "./Components/Carrousel";
+import InformationSection from "./Components/InformationSection";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "Montserrat, Arial, sans-serif",
+  },
+  palette: {
+    primary: {
+      main: "#4787D3", // Personaliza tu color primario
+    },
+    secondary: {
+      main: "#DBEBF4", // Personaliza tu color secundario
+    },
+  },
+});
 
 export default function Home() {
+  const [openCart, setOpenCart] = useState(false);
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+    <>
+      <ThemeProvider theme={theme}>
+        <PrimarySearchAppBar setOpenCart={setOpenCart} />
+        <CartDrawer
+          isOpen={openCart}
+          handleClose={() => setOpenCart(false)}
+          handleOpen={() => setOpenCart(true)}
         />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+        <Carousel />
+        <InformationSection
+          haveRanking={true}
+          description="Esta poderosa combinación revitaliza y transforma tu piel mientras dormís. La niacinamida al 20% minimiza los poros, equilibra la producción de sebo y mejora la textura de la piel, mientras que el ácido hialurónico al 2.5% mantiene la piel hidratada toda la noche. Notarás cómo los poros se minimizan visiblemente y la piel adquiere un brillo natural y saludable. Despierta con una piel increíblemente hidratada y suave. La niacinamida trabaja activamente para suavizar la textura de la piel, dejándola más uniforme y libre de imperfecciones. Con su capacidad para fortalecer la barrera cutánea, este sérum protege tu piel de agresores externos mientras repara los daños existentes.
+¡Descubrí la magia de este sérum nocturno y despertá con una piel más joven, fresca y radiante! Ideal para mujeres que buscan lo mejor en cuidado de la piel, con la confianza de usar un producto argentino de alta calidad.
+"
+          title="NIGHT POWER SERUM"
+          price="23.500"
+          discountPrice="28.000"
+        />
+      </ThemeProvider>
+    </>
   );
 }
