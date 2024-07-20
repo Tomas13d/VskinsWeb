@@ -6,19 +6,24 @@ import { IconButton } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-export default function Carrousel() {
-  const images = ["/Serum.jpeg", "/Serum.jpeg", "/Serum.jpeg"];
-
+export default function Carrousel({
+  showThumbs = true,
+  showArrows = true,
+  images,
+  arrowColors = {
+    color: "#000",
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+  },
+}) {
   const ArrowButton = styled(IconButton)(({ theme }) => ({
     position: "absolute",
     top: "50%",
     transform: "translateY(-50%)",
     zIndex: 2,
-    color: "#000",
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    ...arrowColors,
     borderRadius: "50%",
     "&:hover": {
-      backgroundColor: theme.palette.background.default,
+      backgroundColor: arrowColors.backgroundColor,
     },
   }));
   const PrevArrow = styled(ArrowButton)(({ theme }) => ({
@@ -31,7 +36,8 @@ export default function Carrousel() {
 
   return (
     <Carousel
-      showArrows={true}
+      showThumbs={showThumbs}
+      showArrows={showArrows}
       thumbWidth={65}
       renderArrowPrev={(onClickHandler, hasPrev, label) =>
         hasPrev && (

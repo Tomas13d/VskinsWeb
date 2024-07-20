@@ -33,8 +33,8 @@ export default function InformationSection({
   ];
 
   return (
-    <Box sx={{ padding: "16px", backgroundColor: "#fff" }}>
-      <Typography variant="h4" component="h1">
+    <Box sx={{ padding: "20px", backgroundColor: "#fff" }}>
+      <Typography variant="h4" style={{ fontWeight: 400 }}>
         {title}
       </Typography>
       {haveRanking && (
@@ -60,7 +60,7 @@ export default function InformationSection({
         <Typography
           variant="h5"
           component="span"
-          sx={{ fontWeight: "bold", marginRight: 1 }}
+          style={{ fontWeight: 900, marginRight: "10px" }}
         >
           ${price}
         </Typography>
@@ -103,16 +103,21 @@ export default function InformationSection({
             >
               {method.discount}% de descuento
             </DiscountText>
-            {method.description}
+            <span style={{ fontWeight: 400, marginLeft: "-5px" }}>
+              {" "}
+              {method.description}{" "}
+            </span>
             <br />
-            <span style={{ fontSize: "14px", marginTop: "-15px" }}>
+            <span
+              style={{ fontSize: "14px", marginTop: "-15px", fontWeight: 400 }}
+            >
               {method?.subdescription || ""}
             </span>
           </Typography>
         </Box>
       ))}
       <Divider sx={{ my: 2 }} />
-      <Typography variant="body1">{description}</Typography>
+      {description}
     </Box>
   );
 }
