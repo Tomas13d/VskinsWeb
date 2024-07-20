@@ -16,6 +16,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { productDetailsSerum } from "./utils/productDetails";
 import AccordionUsage from "./Components/AccordionUsage";
+import Footer from "./Components/Footer";
 
 const theme = createTheme({
   typography: {
@@ -76,8 +77,6 @@ export default function Home() {
                 un brillo natural. Este sérum fortalece la barrera cutánea y
                 repara los daños existentes. ¡Descubrí la magia de este sérum
                 nocturno y despertá con una piel más joven, fresca y radiante!
-                Ideal para mujeres que buscan lo mejor en cuidado de la piel,
-                con la confianza de usar un producto argentino de alta calidad.
               </Typography>
             </>
           }
@@ -96,10 +95,10 @@ export default function Home() {
             padding: "20px",
             marginBottom: "10px",
           }}
-        > 
+        >
           <Typography
             variant="h5"
-            sx={{ marginBottom: "15px", marginTop: "50px", fontWeight: 400 }}
+            sx={{ marginBottom: "15px", marginTop: "25px", fontWeight: 400 }}
           >
             Nuestras clientas
           </Typography>
@@ -123,16 +122,16 @@ export default function Home() {
             }
           />
         </Box>
-        <Box sx={{padding: "20px", marginBottom: "440px"}}>
-        {productDetailsSerum.map((item) => (
-          <AccordionUsage
-            title={item.title}
-            information={item.information}
-            Icon={Icons[item.icon]}
-          />
-        ))}
+        <Box sx={{ padding: "20px", marginBottom: "40px" }}>
+          {productDetailsSerum.map((item) => (
+            <AccordionUsage
+              title={item.title}
+              information={item.information}
+              Icon={Icons[item.icon]}
+            />
+          ))}
         </Box>
-    
+        <Footer />
       </ThemeProvider>
     </>
   );

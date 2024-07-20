@@ -39,7 +39,7 @@ const LongProductCard = ({ image, title, description }) => {
         <Typography
           variant="body2"
           color="text.secondary"
-          sx={{ fontSize: "10px", maxWidth: "170px" }}
+          sx={{ fontSize: "10px", maxWidth: "155px" }}
         >
           {description}
         </Typography>

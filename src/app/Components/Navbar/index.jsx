@@ -1,18 +1,10 @@
 import {
-  alpha,
   AppBar,
   Badge,
   Box,
   IconButton,
-  Menu,
-  MenuItem,
   Toolbar,
-  Typography,
 } from "@mui/material";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import { useState } from "react";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import MenuIcon from "@mui/icons-material/Menu";
 import Image from "next/image";
