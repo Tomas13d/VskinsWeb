@@ -96,7 +96,7 @@ export default function Home() {
             padding: "20px",
             marginBottom: "10px",
           }}
-        >
+        > 
           <Typography
             variant="h5"
             sx={{ marginBottom: "15px", marginTop: "50px", fontWeight: 400 }}
