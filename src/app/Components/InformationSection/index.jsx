@@ -33,8 +33,14 @@ export default function InformationSection({
   ];
 
   return (
-    <Box sx={{ padding: "20px", backgroundColor: "#fff" }}>
-      <Typography variant="h4" style={{ fontWeight: 400 }}>
+    <Box sx={{ padding: "20px", backgroundColor: "#fff", marginTop: "20px" }}>
+      <Typography
+        variant="h4"
+        style={{
+          fontWeight: 100,
+          fontSize: "30px",
+        }}
+      >
         {title}
       </Typography>
       {haveRanking && (
@@ -48,7 +54,7 @@ export default function InformationSection({
           <Typography
             variant="body2"
             component="a"
-            href="#"
+            href="#reseñas"
             ml={1}
             sx={{ textDecoration: "underline", color: "#691A52" }}
           >
@@ -57,11 +63,7 @@ export default function InformationSection({
         </Box>
       )}
       <Box display="flex" alignItems="center" my={3}>
-        <Typography
-          variant="h5"
-          component="span"
-          style={{ fontWeight: 900, marginRight: "10px" }}
-        >
+        <Typography variant="h5" sx={{ fontWeight: 400, marginRight: "10px",  }}>
           ${price}
         </Typography>
         <Typography

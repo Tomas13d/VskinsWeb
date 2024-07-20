@@ -59,7 +59,7 @@ export default function Home() {
           handleClose={() => setOpenCart(false)}
           handleOpen={() => setOpenCart(true)}
         />
-        <Carousel images={ProductImages} />
+        <Carousel images={ProductImages} showThumbs={false} />
         <InformationSection
           haveRanking={true}
           description={
@@ -87,7 +87,11 @@ export default function Home() {
         <Box sx={{ width: "90%", margin: "20px auto" }}>
           <QuantityButton />
           <AddToCartButton text={"AGREGAR AL CARRITO"} handleAdd={() => {}} />
-          <BuyNowButton text={"COMPRAR AHORA"} handleBuyNow={() => {}} />
+          <BuyNowButton
+           
+            text={"COMPRAR AHORA"}
+            handleBuyNow={() => {}}
+          />
         </Box>
         <Box
           sx={{

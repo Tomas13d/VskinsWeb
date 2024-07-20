@@ -3,12 +3,12 @@ import "./globals.css";
 
 const inter = Montserrat({
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "800", "900"],
+  weight: ["100", "200", "300", "400", "500", "800", "900"],
 });
 
 export const metadata = {
   title: "Vskins",
-  description: "Deja que tu piel hable por vos.",
+  description: "Deja que tu piel hable por vos",
 };
 
 export default function RootLayout({ children }) {

@@ -20,6 +20,7 @@ const BuyNowButton = ({ text, type = "colored", handleBuyNow }) => {
 
   return (
     <Button
+      id="reseñas"
       onClick={handleBuyNow}
       variant="contained"
       sx={{
