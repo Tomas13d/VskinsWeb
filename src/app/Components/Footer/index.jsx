@@ -33,10 +33,10 @@ const Footer = () => {
         >
         
           <Box sx={{ display: "flex", justifyContent: "center", mb: 2, marginTop: "20px" }}>
-            <Link href="#" underline="none" sx={{ mx: 1, color: "#fff" }}>
+            <Link href="/productos/power-serum" underline="none" sx={{ mx: 1, color: "#fff" }}>
               Serum
             </Link>
-            <Link href="#" underline="none" sx={{ mx: 1, color: "#fff" }}>
+            <Link href="/productos/power-cream" underline="none" sx={{ mx: 1, color: "#fff" }}>
               Crema
             </Link>
           </Box>

@@ -4,6 +4,7 @@ import StarIcon from "@mui/icons-material/Star";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import styled from "@emotion/styled";
+import { formatCurrency } from "@/app/utils/formatCurrency";
 
 const DiscountText = styled(Typography)`
   display: inline-block;
@@ -62,16 +63,30 @@ export default function InformationSection({
           </Typography>
         </Box>
       )}
-      <Box display="flex" alignItems="center" my={3}>
-        <Typography variant="h5" sx={{ fontWeight: 400, marginRight: "10px",  }}>
-          ${price}
-        </Typography>
-        <Typography
-          variant="body1"
-          component="span"
-          sx={{ textDecoration: "line-through", color: "#9E9E9E" }}
-        >
-          ${discountPrice}
+      <Box
+        display="flex"
+        alignItems="center"
+        sx={{ marginBottom: "30px", marginTop: "15px" }}
+      >
+        <Typography variant="h5" sx={{ fontWeight: 400, marginRight: "10px" }}>
+          <span
+            style={{ fontSize: "12px", display: "block", color: "#9E9E9E" }}
+          >
+            Abonando con transferencia
+          </span>
+          {formatCurrency(discountPrice)}
+          <Typography
+            variant="body1"
+            component="span"
+            sx={{
+              textDecoration: "line-through",
+              color: "#9E9E9E",
+              paddingBottom: "10px",
+              marginLeft: "10px",
+            }}
+          >
+            {formatCurrency(price)}
+          </Typography>
         </Typography>
       </Box>
       {examplePayMethods.map((method, index) => (

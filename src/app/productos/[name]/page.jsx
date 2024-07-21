@@ -141,6 +141,9 @@ export default function ProductPage({ params }) {
     id: product.id,
     title: product.title,
     price: product.price,
+    transferPrice: product.transferPrice,
+    creditPrice: product.creditPrice,
+    img: product.images[0]
   };
 
   return (
@@ -169,7 +172,7 @@ export default function ProductPage({ params }) {
           description={
             <>
               <Typography style={{ fontWeight: 600 }}>
-                {product.descriptionTilte}
+                {product.descriptionTitle}
               </Typography>
               <Typography sx={{ fontWeight: 200 }}>
                 {product.description}
@@ -177,13 +180,13 @@ export default function ProductPage({ params }) {
             </>
           }
           title={product.title}
-          price={"23.500"}
-          discountPrice={product.price}
+          price={product.price}
+          discountPrice={product.transferPrice}
         />
         <Box sx={{ width: "90%", margin: "20px auto" }}>
           <QuantityButton
             haveTitle={true}
-            amount={productAmount}
+            amount={productAmount || 1}
             handleAdd={handleAdd}
             handleRemove={handleRemove}
             item={productItem}
