@@ -19,10 +19,14 @@ const products = {
     ],
     referedProduct: [
       {
+        id: "VS_CREAM_002",
         title: "POWER CREAM",
-        image: "/PowerCream.jpg",
+        img: "/PowerCream.jpg",
         description:
           "Crema facial con 20% de niacinamida, ácido salicílico 2% y vitamina C",
+        price: 24_700,
+        transferPrice: 21_000,
+        creditPrice: 22_200,
       },
     ],
     productDetails: [
@@ -55,13 +59,14 @@ const products = {
   "power-cream": {
     id: "VS_CREAM_002",
     title: "POWER CREAM",
-    price: "24.200",
-    lowestPrice: "21.000",
+    price: 25_800,
+    transferPrice: 22_000,
+    creditPrice: 23_200,
     descriptionTitle:
       "CREMA FACIAL CON 20% DE NIACINAMIDA, ÁCIDO SALICÍLICO 2% Y VITAMINA C",
     description:
       "Utilizar esta crema todos los días transforma tu piel. La niacinamida al 20% reduce los poros, equilibra la producción de sebo y mejora la textura. El ácido salicílico al 2% exfolia y limpia profundamente, previniendo brotes y reduciendo imperfecciones. La vitamina C ilumina la piel, iguala el tono, protege contra daños ambientales y promueve la producción de colágeno para reducir líneas finas y arrugas.",
-    images: ["/Serum.jpeg", "/Serum.jpeg", "/Serum.jpeg"],
+    images: ["/PowerCream.jpg", "/PowerCream.jpg", "/PowerCream.jpg"],
     haveTestimonies: false,
     testimoniesImages: [
       "/Testimonio1.png",
@@ -71,9 +76,13 @@ const products = {
     ],
     referedProduct: [
       {
+        id: "VS_SERUM_001",
         title: "NIGHT POWER SERUM",
-        image: "/Serum.jpeg",
+        img: "/Serum.jpeg",
         description: "Serum con 20% de niacinamida, 2,5% de ácido hialurónico.",
+        price: 28_000,
+        transferPrice: 23_500,
+        creditPrice: 25_200,
       },
     ],
     productDetails: [

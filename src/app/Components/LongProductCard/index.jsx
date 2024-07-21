@@ -19,7 +19,7 @@ const StyledCard = styled(Card)({
   margin: "16px auto",
 });
 
-const LongProductCard = ({ image, title, description }) => {
+const LongProductCard = ({ image, title, description, item, handleAdd }) => {
   return (
     <StyledCard>
       <CardMedia
@@ -39,13 +39,14 @@ const LongProductCard = ({ image, title, description }) => {
         <Typography
           variant="body2"
           color="text.secondary"
-          sx={{ fontSize: "10px", maxWidth: "155px" }}
+          sx={{ fontSize: "10px", maxWidth: "152px" }}
         >
           {description}
         </Typography>
       </CardContent>
       <Button
-      disableElevation
+        onClick={() => handleAdd(item)}
+        disableElevation
         variant="contained"
         sx={{
           backgroundColor: "#691A52",

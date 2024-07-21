@@ -12,6 +12,7 @@ import {
   RadioGroup,
   Stack,
   SwipeableDrawer,
+  TextField,
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -21,8 +22,10 @@ import BuyNowButton from "../Buttons/BuyNowButton";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import { useEffect, useState } from "react";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import styled from "@emotion/styled";
 import { formatCurrency } from "@/app/utils/formatCurrency";
+import Swal from "sweetalert2";
 
 const RotatingImage = styled("img")(({ theme }) => ({
   position: "absolute",
@@ -33,7 +36,7 @@ const RotatingImage = styled("img")(({ theme }) => ({
   marginTop: "-5px",
   transformOrigin: "30px 0px",
   animation: "shake 10s cubic-bezier(0.73, 0, 0.21, 0.97) infinite",
-  zIndex: 1000,
+  zIndex: 10,
   "@keyframes shake": {
     "0%, 100%": {
       transform: "translateX(0)",
@@ -47,6 +50,61 @@ const RotatingImage = styled("img")(({ theme }) => ({
   },
 }));
 
+function generateWhatsAppMessage({
+  cart,
+  personalInformation,
+  totalAmount,
+  payMethod,
+  sendMethod,
+}) {
+  // Formato de fecha y hora
+  const currentDate = new Date();
+  const dateStr = `${currentDate.getDate().toString().padStart(2, "0")}/${(
+    currentDate.getMonth() + 1
+  )
+    .toString()
+    .padStart(2, "0")}/${currentDate.getFullYear()} - ${currentDate
+    .getHours()
+    .toString()
+    .padStart(2, "0")}:${currentDate
+    .getMinutes()
+    .toString()
+    .padStart(2, "0")}hs`;
+
+  // Generar lista de productos
+  const productList = cart
+    .map((item) => `🔹 ${item.amount}x ${item.title}`)
+    .join("\n");
+
+  // Calcular subtotal y total
+  const subtotal = cart.reduce(
+    (sum, item) => sum + item.price * item.amount,
+    0
+  );
+  const discountAmount = totalAmount.totalDiscount;
+  const total = totalAmount.total;
+
+  // Elegir etiqueta de método de pago
+  const sendMethodLabel =
+    sendMethod === "retiro"
+      ? "Rerito por punto de Entrega"
+      : "Envio a coordinar";
+  const paymentLabel = payMethod === "transfer" ? "Transferencia" : "Crédito";
+
+  // Mensaje de WhatsApp
+  const message = `✨ _¡Hola! Te paso el resumen de mi pedido_ ✨\n\n📅 *Fecha:* ${dateStr}\n👤 *Nombre:* ${personalInformation.name}\n📞 *Teléfono:* ${personalInformation.phone}\n\n💳 *Forma de pago:* ${paymentLabel}\n💰 *Total:* $${total}\n\n🚚 *Método de Envío:* ${sendMethodLabel}\n\n📦 _Mi pedido es_*\n\nPRODUCTOS*\n${productList}\n\n📜 *Resumen de Costos:*\n- Subtotal: $${subtotal}\n- Descuento del ${totalAmount.discount}%: $${discountAmount}\n- Costo de envío: A Coordinar\n- *TOTAL:* *$${total}*\n\n✨ _Espero tu respuesta para confirmar mi pedido_ ✨`;
+
+  const encodedMessage = encodeURIComponent(message);
+
+  // Número de teléfono
+  const phoneNumber = "5493516500365";
+
+  // Enlace de WhatsApp
+  const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+  return { message, whatsappLink };
+}
+
 export default function CartDrawer({
   handleClose,
   handleOpen,
@@ -56,7 +114,12 @@ export default function CartDrawer({
   handleAdd,
   handleRemove,
 }) {
+  const [personalInformation, setPersonalInformation] = useState({
+    name: "",
+    phone: "",
+  });
   const [cart, setCart] = useState([]);
+  const [sendMethod, setSendMethos] = useState("retiro");
   const [totalAmount, setTotalAmount] = useState({
     total: 0,
     discount: 0,
@@ -67,6 +130,33 @@ export default function CartDrawer({
     display: inline-block;
     margin-right: 8px;
   `;
+
+  const handleBuy = () => {
+    if (!personalInformation.name || !personalInformation.phone) {
+      return Swal.fire({
+        icon: "warning",
+        title: "Por favor, completa tus datos personales.",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+
+    const { whatsappLink } = generateWhatsAppMessage({
+      cart,
+      personalInformation,
+      totalAmount,
+      payMethod,
+      sendMethod,
+    });
+
+    window.open(whatsappLink);
+  };
+
+  const handleChange = (e) =>
+    setPersonalInformation((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
 
   useEffect(() => {
     const storageCart = JSON.parse(window.localStorage.getItem("Cart"));
@@ -132,7 +222,15 @@ export default function CartDrawer({
       onOpen={handleOpen}
       sx={{ position: "relative" }}
     >
-      <Box sx={{ width: 400, padding: 4 }}>
+      <Box
+        sx={{
+          width: 400,
+          padding: 4,
+          maxHeight: "80vh",
+          overflowY: "scroll",
+          overflowX: "hidden",
+        }}
+      >
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography variant="h6">Carrito de Compras</Typography>
           <IconButton onClick={handleClose}>
@@ -143,7 +241,18 @@ export default function CartDrawer({
         <List>
           {Boolean(cart?.length > 0) ? (
             cart.map((item) => (
-              <ListItem sx={{ p: 0 }}>
+              <ListItem
+                sx={{ p: 0, marginBottom: "10px", position: "relative" }}
+              >
+                <DeleteOutlineIcon
+                  onClick={() => handleDelete(item)}
+                  sx={{
+                    position: "absolute",
+                    top: "3px",
+                    right: 0,
+                    fontSize: "20px",
+                  }}
+                />
                 <Image
                   src={item.img || "/Serum.jpeg"}
                   alt="Smart Serum"
@@ -199,7 +308,11 @@ export default function CartDrawer({
           <Typography variant="subtitle1" marginRight={2} marginBottom={1}>
             MEDIOS DE ENVÍO
           </Typography>
-          <RadioGroup sx={{ alignItems: "center", width: "100%" }}>
+          <RadioGroup
+            sx={{ alignItems: "center", width: "100%" }}
+            value={sendMethod}
+            onChange={(e) => setSendMethos(e.target.value)}
+          >
             <FormControlLabel
               sx={{
                 border: "1px solid #ccc",
@@ -276,7 +389,15 @@ export default function CartDrawer({
                   }}
                 >
                   <Box>
-                    <Typography>Envío Andreani</Typography>
+                    <Typography>
+                      Envío
+                      <Typography
+                        variant="body2"
+                        sx={{ fontWeight: 200, p: 0, marginTop: "-5px" }}
+                      >
+                        Domicilio / Sucursal
+                      </Typography>
+                    </Typography>
                   </Box>
                   <Typography sx={{ marginRight: "2px", marginLeft: "3px" }}>
                     A calcular
@@ -361,18 +482,45 @@ export default function CartDrawer({
               />
             ))}
           </RadioGroup>
+          <Divider sx={{ my: 2 }} />
+          <Typography variant="subtitle1" marginRight={2} marginBottom={1}>
+            DATOS PERSONALES
+          </Typography>
+          <Box display="flex" flexDirection="column" gap={2}>
+            <TextField
+              label="Nombre"
+              variant="outlined"
+              type="text"
+              name="name"
+              value={personalInformation.name}
+              fullWidth
+              onChange={handleChange}
+            />
+            <TextField
+              label="Número de Teléfono"
+              variant="outlined"
+              type="tel"
+              name="phone"
+              value={personalInformation.phone}
+              fullWidth
+              onChange={handleChange}
+            />
+          </Box>
         </List>
-        <Divider sx={{ my: 2 }} />
       </Box>
 
       <Box
         sx={{
           width: "100%",
           position: "absolute",
+          paddingLeft: 4,
+          paddingRight: 4,
+          paddingBottom: 2,
           bottom: 0,
           textAlign: "center",
-          padding: "20px",
           backgroundColor: "#fff",
+          zIndex: 20,
+          boxShadow: "0px -4px 6px rgba(0, 0, 0, 0.1)",
         }}
       >
         <Divider sx={{ my: 2 }} />
@@ -388,7 +536,8 @@ export default function CartDrawer({
             sx={{ fontWeight: 300 }}
           >{`Descuento ${totalAmount.discount}%:`}</Typography>
           <Typography sx={{ fontWeight: 300 }}>
-            - {formatCurrency(totalAmount.totalDiscount)}
+            <span style={{ fontWeight: 600 }}>-</span>{" "}
+            {formatCurrency(totalAmount.totalDiscount)}
           </Typography>
         </Box>
         <Box
@@ -404,7 +553,10 @@ export default function CartDrawer({
             {formatCurrency(totalAmount.total)}
           </Typography>
         </Box>
-        <BuyNowButton text={"CONTINUAR CON LA COMPRA"} />
+        <BuyNowButton
+          text={"CONTINUAR CON LA COMPRA"}
+          handleBuyNow={handleBuy}
+        />
       </Box>
     </SwipeableDrawer>
   );

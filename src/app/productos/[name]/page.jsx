@@ -58,7 +58,11 @@ export default function ProductPage({ params }) {
         0
       );
       setCartLength(totalAmount);
-      setProductAmount(productFinded.amount);
+      if (productFinded) {
+        setProductAmount(productFinded.amount);
+      } else {
+        setProductAmount(1);
+      }
     } else {
       setProductAmount(1);
     }
@@ -70,7 +74,7 @@ export default function ProductPage({ params }) {
     let parsedCart = storageCart ? JSON.parse(storageCart) : [];
 
     const existingProductIndex = parsedCart.findIndex(
-      (storageItem) => storageItem.cod_subrubro === item.cod_subrubro
+      (storageItem) => storageItem.id === item.id
     );
 
     if (existingProductIndex !== -1) {
@@ -143,7 +147,7 @@ export default function ProductPage({ params }) {
     price: product.price,
     transferPrice: product.transferPrice,
     creditPrice: product.creditPrice,
-    img: product.images[0]
+    img: product.images[0],
   };
 
   return (
@@ -181,7 +185,8 @@ export default function ProductPage({ params }) {
           }
           title={product.title}
           price={product.price}
-          discountPrice={product.transferPrice}
+          transferPrice={product.transferPrice}
+          creditPrice={product.creditPrice}
         />
         <Box sx={{ width: "90%", margin: "20px auto" }}>
           <QuantityButton
@@ -241,8 +246,10 @@ export default function ProductPage({ params }) {
             product.referedProduct.map((item) => (
               <LongProductCard
                 title={item.title}
-                image={item.image}
+                image={item.img}
                 description={item.description}
+                item={item}
+                handleAdd={handleAdd}
               />
             ))}
         </Box>

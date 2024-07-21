@@ -16,7 +16,8 @@ export default function InformationSection({
   description,
   title,
   price,
-  discountPrice,
+  transferPrice,
+  creditPrice,
   payMethods,
 }) {
   const examplePayMethods = [
@@ -29,7 +30,7 @@ export default function InformationSection({
       type: "credit",
       discount: 10,
       description: "en tarjetas de crédito.",
-      subdescription: "2 cuotas de $12.600",
+      subdescription: "",
     },
   ];
 
@@ -74,7 +75,7 @@ export default function InformationSection({
           >
             Abonando con transferencia
           </span>
-          {formatCurrency(discountPrice)}
+          {formatCurrency(transferPrice)}
           <Typography
             variant="body1"
             component="span"
