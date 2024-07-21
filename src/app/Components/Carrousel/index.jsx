@@ -6,6 +6,35 @@ import { IconButton } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
+const renderMedia = (item) => {
+  const isVideo = item.match(/\.(mp4|webm|ogg|mov)$/i);
+  if (isVideo) {
+    return (
+      <div style={{ maxHeight: "573px" }}>
+        <video
+          autoPlay
+          muted
+          loop
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        >
+          <source src={item} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    );
+  } else {
+    return (
+      <div style={{ maxHeight: "573px" }}>
+        <img
+          src={item}
+          alt="media"
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </div>
+    );
+  }
+};
+
 export default function Carrousel({
   showThumbs = true,
   showArrows = true,
@@ -54,10 +83,8 @@ export default function Carrousel({
         )
       }
     >
-      {images.map((item) => (
-        <div>
-          <img src={item} />
-        </div>
+      {images.map((item, index) => (
+        <div key={index}>{renderMedia(item)}</div>
       ))}
     </Carousel>
   );

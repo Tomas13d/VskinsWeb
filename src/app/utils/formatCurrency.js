@@ -3,4 +3,6 @@ export const formatCurrency = (amount, options) =>
       ...options,
       style: "currency",
       currency: "ARS",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
     }).format(amount);

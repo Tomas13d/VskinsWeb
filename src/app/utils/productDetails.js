@@ -9,7 +9,7 @@ const products = {
       "NIGHT POWER SERUM CON 20% DE NIACINAMIDA, 2,5% DE ÁCIDO HIALURÓNICO.",
     description:
       "Esta poderosa combinación revitaliza tu piel mientras dormís. La niacinamida al 20% minimiza los poros, equilibra la producción de sebo y mejora la textura de la piel. El ácido hialurónico al 2.5% mantiene la piel hidratada toda la noche. Despierta con una piel increíblemente hidratada y suave, con poros minimizados y un brillo natural. Este sérum fortalece la barrera cutánea y repara los daños existentes. ¡Descubrí la magia de este sérum nocturno y despertá con una piel más joven, fresca y radiante!",
-    images: ["/Serum.jpeg", "/Serum.jpeg", "/Serum.jpeg"],
+    images: ["/Serum.jpeg", "/Serum.mov"],
     haveTestimonies: true,
     testimoniesImages: [
       "/Testimonio1.png",
@@ -66,14 +66,9 @@ const products = {
       "CREMA FACIAL CON 20% DE NIACINAMIDA, ÁCIDO SALICÍLICO 2% Y VITAMINA C",
     description:
       "Utilizar esta crema todos los días transforma tu piel. La niacinamida al 20% reduce los poros, equilibra la producción de sebo y mejora la textura. El ácido salicílico al 2% exfolia y limpia profundamente, previniendo brotes y reduciendo imperfecciones. La vitamina C ilumina la piel, iguala el tono, protege contra daños ambientales y promueve la producción de colágeno para reducir líneas finas y arrugas.",
-    images: ["/PowerCream.jpg", "/PowerCream.jpg", "/PowerCream.jpg"],
+    images: ["/PowerCream.jpg", "/Crema.mov"],
     haveTestimonies: false,
-    testimoniesImages: [
-      "/Testimonio1.png",
-      "/Testimonio2.png",
-      "/Testimonio3.png",
-      "/Testimonio4.png",
-    ],
+    testimoniesImages: [],
     referedProduct: [
       {
         id: "VS_SERUM_001",
