@@ -73,7 +73,7 @@ function generateWhatsAppMessage({
 
   // Generar lista de productos
   const productList = cart
-    .map((item) => `🔹 ${item.amount}x ${item.title}`)
+    .map((item) => `• ${item.amount}x ${item.title}`)
     .join("\n");
 
   // Calcular subtotal y total
@@ -92,7 +92,15 @@ function generateWhatsAppMessage({
   const paymentLabel = payMethod === "transfer" ? "Transferencia" : "Crédito";
 
   // Mensaje de WhatsApp
-  const message = `✨ _¡Hola! Te paso el resumen de mi pedido_ ✨\n\n📅 *Fecha:* ${dateStr}\n👤 *Nombre:* ${personalInformation.name}\n📞 *Teléfono:* ${personalInformation.phone}\n\n💳 *Forma de pago:* ${paymentLabel}\n💰 *Total:* $${total}\n\n🚚 *Método de Envío:* ${sendMethodLabel}\n\n📦 _Mi pedido es_*\n\nPRODUCTOS*\n${productList}\n\n📜 *Resumen de Costos:*\n- Subtotal: $${subtotal}\n- Descuento del ${totalAmount.discount}%: $${discountAmount}\n- Costo de envío: A Coordinar\n- *TOTAL:* *$${total}*\n\n✨ _Espero tu respuesta para confirmar mi pedido_ ✨`;
+  const message = `✨ _¡Hola! Te paso el resumen de mi pedido_ ✨\n\n📅 *Fecha:* ${dateStr}\n👤 *Nombre:* ${
+    personalInformation.name
+  }\n📞 *Teléfono:* ${
+    personalInformation.phone
+  }\n\n💳 *Forma de pago:* ${paymentLabel}\n💰 *Total:* ${formatCurrency(
+    total
+  )}\n\n🚚 *Método de Envío:* ${sendMethodLabel}\n\n📦 *_Mi pedido es_*\n\n*PRODUCTOS*\n${productList}\n\n📜 *Resumen de Costos:*\n- Subtotal: $${subtotal}\n- Descuento del ${
+    totalAmount.discount
+  }%: $${discountAmount}\n- Costo de envío: A Coordinar\n- *TOTAL:* *$${total}*\n\n✨ _Espero tu respuesta para confirmar mi pedido_ ✨`;
 
   const encodedMessage = encodeURIComponent(message);
 
@@ -148,8 +156,14 @@ export default function CartDrawer({
       payMethod,
       sendMethod,
     });
-
-    window.open(whatsappLink);
+    Swal.fire({
+      title: "¡Ya casi estamos!✨",
+      text: "Para terminar y brindarte una mejor atención, te redirigiremos a WhatsApp con los detalles de tu pedido.",
+      timer: 3300,
+      icon: "info",
+      showConfirmButton: false,
+    });
+    setTimeout(() => window.open(whatsappLink), 3302);
   };
 
   const handleChange = (e) =>
