@@ -4,3 +4,7 @@
   margin: 0;
   scroll-behavior: smooth;
 }
+
+.swal2-container {
+  z-index:1200;
+}

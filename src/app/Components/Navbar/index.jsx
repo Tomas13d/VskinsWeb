@@ -1,17 +1,17 @@
-import {
-  AppBar,
-  Badge,
-  Box,
-  IconButton,
-  Toolbar,
-} from "@mui/material";
+import { AppBar, Badge, Box, IconButton, Toolbar } from "@mui/material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import MenuIcon from "@mui/icons-material/Menu";
 import Image from "next/image";
 
-export default function PrimarySearchAppBar({ setOpenCart }) {
+export default function PrimarySearchAppBar({
+  setOpenCart,
+  setReloadCart,
+  cartLength,
+}) {
   return (
-    <Box sx={{ flexGrow: 1, position: "fixed", zIndex: 10, top: 0, width: "100%" }}>
+    <Box
+      sx={{ flexGrow: 1, position: "fixed", zIndex: 10, top: 0, width: "100%" }}
+    >
       <AppBar position="static" sx={{ backgroundColor: "#fff", color: "#000" }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <IconButton
@@ -35,10 +35,13 @@ export default function PrimarySearchAppBar({ setOpenCart }) {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
-              onClick={() => setOpenCart(true)}
+              onClick={() => {
+                setOpenCart(true);
+                setReloadCart((p) => !p);
+              }}
             >
               <Badge
-                badgeContent={17}
+                badgeContent={cartLength}
                 sx={{
                   "& .MuiBadge-badge": {
                     backgroundColor: "#5B1546",

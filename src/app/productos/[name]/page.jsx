@@ -1,23 +1,22 @@
 "use client";
-import PrimarySearchAppBar from "./Components/Navbar";
-import CartDrawer from "./Components/CartDrawer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Carousel from "../../Components/Carrousel";
+import InformationSection from "../../Components/InformationSection";
+import AddToCartButton from "../../Components/Buttons/AddToCartButton";
+import BuyNowButton from "../../Components/Buttons/BuyNowButton";
+import QuantityButton from "../../Components/Buttons/QuantityButton";
+import LongProductCard from "../../Components/LongProductCard";
+import PrimarySearchAppBar from "../../Components/Navbar";
+import AccordionUsage from "../../Components/AccordionUsage";
+import Footer from "../../Components/Footer";
+import CartDrawer from "../../Components/CartDrawer";
+import products from "../../utils/productDetails";
+import Swal from "sweetalert2";
 import { Box, createTheme, ThemeProvider, Typography } from "@mui/material";
-import Carousel from "./Components/Carrousel";
-import InformationSection from "./Components/InformationSection";
-import AddToCartButton from "./Components/Buttons/AddToCartButton";
-import BuyNowButton from "./Components/Buttons/BuyNowButton";
-import QuantityButton from "./Components/Buttons/QuantityButton";
-import LongProductCard from "./Components/LongProductCard";
 import InfoIcon from "@mui/icons-material/Info";
 import TimerIcon from "@mui/icons-material/Timer";
 import ListIcon from "@mui/icons-material/List";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
-import { productDetailsSerum } from "./utils/productDetails";
-import AccordionUsage from "./Components/AccordionUsage";
-import Footer from "./Components/Footer";
-import Swal from "sweetalert2";
 
 const theme = createTheme({
   typography: {
@@ -43,9 +42,27 @@ const Icons = {
   ShoppingIcon: ShoppingCartIcon,
 };
 
-export default function Home() {
+export default function ProductPage({ params }) {
+  const [productAmount, setProductAmount] = useState();
+  const [cartLength, setCartLength] = useState(0);
   const [reloadCart, setReloadCart] = useState(true);
   const [openCart, setOpenCart] = useState(false);
+  const product = products[params.name];
+
+  useEffect(() => {
+    const storageCart = JSON.parse(window.localStorage.getItem("Cart"));
+    if (storageCart && storageCart.length > 0) {
+      const productFinded = storageCart.find((item) => item.id === product.id);
+      const totalAmount = storageCart.reduce(
+        (acc, item) => acc + item.amount,
+        0
+      );
+      setCartLength(totalAmount);
+      setProductAmount(productFinded.amount);
+    } else {
+      setProductAmount(1);
+    }
+  }, [reloadCart]);
 
   const handleAdd = (item) => {
     let product = { ...item, amount: 1 };
@@ -120,12 +137,19 @@ export default function Home() {
     });
   };
 
+  const productItem = {
+    id: product.id,
+    title: product.title,
+    price: product.price,
+  };
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <PrimarySearchAppBar
           setOpenCart={setOpenCart}
           setReloadCart={setReloadCart}
+          cartLength={cartLength}
         />
         <CartDrawer
           isOpen={openCart}
@@ -139,43 +163,34 @@ export default function Home() {
           }}
           reloadCart={reloadCart}
         />
-        <Carousel images={ProductImages} showThumbs={false} />
+        <Carousel images={product.images} showThumbs={false} />
         <InformationSection
           haveRanking={true}
           description={
             <>
               <Typography style={{ fontWeight: 600 }}>
-                NIGHT POWER SERUM CON 20% DE NIACINAMIDA, 2,5% DE ÁCIDO
-                HIALURÓNICO.
+                {product.descriptionTilte}
               </Typography>
               <Typography sx={{ fontWeight: 200 }}>
-                Esta poderosa combinación revitaliza tu piel mientras dormís. La
-                niacinamida al 20% minimiza los poros, equilibra la producción
-                de sebo y mejora la textura de la piel. El ácido hialurónico al
-                2.5% mantiene la piel hidratada toda la noche. Despierta con una
-                piel increíblemente hidratada y suave, con poros minimizados y
-                un brillo natural. Este sérum fortalece la barrera cutánea y
-                repara los daños existentes. ¡Descubrí la magia de este sérum
-                nocturno y despertá con una piel más joven, fresca y radiante!
+                {product.description}
               </Typography>
             </>
           }
-          title="NIGHT POWER SERUM"
-          price="23.500"
-          discountPrice="28.000"
+          title={product.title}
+          price={"23.500"}
+          discountPrice={product.price}
         />
         <Box sx={{ width: "90%", margin: "20px auto" }}>
-          <QuantityButton haveTitle={true} />
+          <QuantityButton
+            haveTitle={true}
+            amount={productAmount}
+            handleAdd={handleAdd}
+            handleRemove={handleRemove}
+            item={productItem}
+          />
           <AddToCartButton
             text={"AGREGAR AL CARRITO"}
-            handleAdd={() =>
-              handleAdd({
-                id: "VS_SERUM_001",
-                title: "NIGHT POWER SERUM",
-                price: "$28.000",
-                discountPrice: "$23.500",
-              })
-            }
+            handleAdd={() => handleAdd(productItem)}
           />
           <BuyNowButton
             text={"COMPRAR AHORA"}
@@ -192,35 +207,44 @@ export default function Home() {
             marginBottom: "10px",
           }}
         >
-          
-          <Typography
-            variant="h5"
-            sx={{ marginBottom: "15px", marginTop: "25px", fontWeight: 400 }}
-          >
-            Nuestras clientas
-          </Typography>
-          <Carousel
-            images={TestimoniesImages}
-            showThumbs={false}
-            showArrows={false}
-            arrowColors={{ color: "#fff", backgroundColor: "#691A52" }}
-          />
+          {product.haveTestimonies && (
+            <>
+              <Typography
+                variant="h5"
+                sx={{
+                  marginBottom: "15px",
+                  marginTop: "25px",
+                  fontWeight: 400,
+                }}
+              >
+                Nuestras clientas
+              </Typography>
+              <Carousel
+                images={product.testimoniesImages}
+                showThumbs={false}
+                showArrows={false}
+                arrowColors={{ color: "#fff", backgroundColor: "#691A52" }}
+              />
+            </>
+          )}
+
           <Typography
             variant="h5"
             sx={{ marginBottom: "15px", marginTop: "40px", fontWeight: 400 }}
           >
             Nuestras clientas también llevan
           </Typography>
-          <LongProductCard
-            title={"POWER CREAM"}
-            image="/PowerCream.jpg"
-            description={
-              "Crema facial con 20% de niacinamida, ácido salicílico 2% y vitamina C"
-            }
-          />
+          {Boolean(product?.referedProduct?.length > 0) &&
+            product.referedProduct.map((item) => (
+              <LongProductCard
+                title={item.title}
+                image={item.image}
+                description={item.description}
+              />
+            ))}
         </Box>
         <Box sx={{ padding: "20px", marginBottom: "40px" }}>
-          {productDetailsSerum.map((item) => (
+          {product.productDetails.map((item) => (
             <AccordionUsage
               title={item.title}
               information={item.information}
