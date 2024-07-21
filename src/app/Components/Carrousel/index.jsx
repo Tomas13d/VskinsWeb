@@ -24,7 +24,7 @@ const renderMedia = (item) => {
     );
   } else {
     return (
-      <div style={{ maxHeight: "573px" }}>
+      <div>
         <img
           src={item}
           alt="media"
