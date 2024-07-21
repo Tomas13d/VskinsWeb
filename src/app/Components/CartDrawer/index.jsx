@@ -252,7 +252,7 @@ export default function CartDrawer({
           </IconButton>
         </Box>
         <Divider sx={{ my: 2 }} />
-        <List>
+        <List sx={{marginBottom: "40px"}}>
           {Boolean(cart?.length > 0) ? (
             cart.map((item) => (
               <ListItem

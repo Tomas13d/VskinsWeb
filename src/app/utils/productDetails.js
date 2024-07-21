@@ -27,6 +27,7 @@ const products = {
         price: 24_700,
         transferPrice: 21_000,
         creditPrice: 22_200,
+        link: "/productos/power-cream"
       },
     ],
     productDetails: [
@@ -78,6 +79,7 @@ const products = {
         price: 28_000,
         transferPrice: 23_500,
         creditPrice: 25_200,
+          link: "/productos/power-serum"
       },
     ],
     productDetails: [

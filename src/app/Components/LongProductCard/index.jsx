@@ -8,6 +8,7 @@ import {
   Box,
 } from "@mui/material";
 import { styled } from "@mui/system";
+import { useRouter } from "next/navigation";
 
 const StyledCard = styled(Card)({
   display: "flex",
@@ -19,10 +20,20 @@ const StyledCard = styled(Card)({
   margin: "16px auto",
 });
 
-const LongProductCard = ({ image, title, description, item, handleAdd }) => {
+const LongProductCard = ({
+  image,
+  title,
+  description,
+  item,
+  handleAdd,
+  link,
+}) => {
+  const router = useRouter();
+
   return (
     <StyledCard>
       <CardMedia
+        onClick={() => router.push(link)}
         component="img"
         sx={{ width: 80, height: 80, borderRadius: "8px" }}
         image={image}
@@ -33,6 +44,7 @@ const LongProductCard = ({ image, title, description, item, handleAdd }) => {
           variant="h5"
           component="div"
           sx={{ fontWeight: "bold", fontSize: "14px" }}
+          onClick={() => router.push(link)}
         >
           {title}
         </Typography>
@@ -40,6 +52,7 @@ const LongProductCard = ({ image, title, description, item, handleAdd }) => {
           variant="body2"
           color="text.secondary"
           sx={{ fontSize: "10px", maxWidth: "152px" }}
+          onClick={() => router.push(link)}
         >
           {description}
         </Typography>

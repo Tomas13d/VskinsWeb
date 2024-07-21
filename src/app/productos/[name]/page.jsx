@@ -250,6 +250,7 @@ export default function ProductPage({ params }) {
                 description={item.description}
                 item={item}
                 handleAdd={handleAdd}
+                link={item.link}
               />
             ))}
         </Box>
