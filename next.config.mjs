@@ -4,7 +4,7 @@ const nextConfig = {
         return [
           {
             source: '/',
-            destination: '/productos/power-serum/',
+            destination: '/productos/power-serum',
             permanent: true,
           },
         ];
