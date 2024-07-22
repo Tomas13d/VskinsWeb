@@ -17,6 +17,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import TimerIcon from "@mui/icons-material/Timer";
 import ListIcon from "@mui/icons-material/List";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useSearchParams } from "next/navigation";
 
 const theme = createTheme({
   typography: {
@@ -43,6 +44,8 @@ const Icons = {
 };
 
 export default function ProductPage({ params }) {
+  const searchParams = useSearchParams();
+  const saler = searchParams.get("saler");
   const [productAmount, setProductAmount] = useState();
   const [cartLength, setCartLength] = useState(0);
   const [reloadCart, setReloadCart] = useState(true);
@@ -159,6 +162,7 @@ export default function ProductPage({ params }) {
           cartLength={cartLength}
         />
         <CartDrawer
+          saler={saler}
           isOpen={openCart}
           handleAdd={handleAdd}
           handleDelete={handleDelete}
@@ -251,6 +255,7 @@ export default function ProductPage({ params }) {
                 item={item}
                 handleAdd={handleAdd}
                 link={item.link}
+                saler={saler}
               />
             ))}
         </Box>
@@ -263,7 +268,7 @@ export default function ProductPage({ params }) {
             />
           ))}
         </Box>
-        <Footer />
+        <Footer saler={saler}/>
       </ThemeProvider>
     </>
   );

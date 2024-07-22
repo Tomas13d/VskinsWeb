@@ -26,6 +26,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import styled from "@emotion/styled";
 import { formatCurrency } from "@/app/utils/formatCurrency";
 import Swal from "sweetalert2";
+import salerAgents from "@/app/utils/salersAgents";
 
 const RotatingImage = styled("img")(({ theme }) => ({
   position: "absolute",
@@ -56,6 +57,7 @@ function generateWhatsAppMessage({
   totalAmount,
   payMethod,
   sendMethod,
+  saler,
 }) {
   // Formato de fecha y hora
   const currentDate = new Date();
@@ -76,6 +78,11 @@ function generateWhatsAppMessage({
     .map((item) => `• ${item.amount}x ${item.title}`)
     .join("\n");
 
+  let salerName = "";
+  if (saler) {
+    salerName = salerAgents[saler].name;
+  }
+
   // Calcular subtotal y total
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * item.amount,
@@ -94,8 +101,8 @@ function generateWhatsAppMessage({
   // Mensaje de WhatsApp
   const message = `✨ _¡Hola! Te paso el resumen de mi pedido_ ✨\n\n📅 *Fecha:* ${dateStr}\n👤 *Nombre:* ${
     personalInformation.name
-  }\n📞 *Teléfono:* ${
-    personalInformation.phone
+  }\n📞 *Teléfono:* ${personalInformation.phone}${
+    salerName ? `\n*Vendedor*: ${salerName}` : ""
   }\n\n💳 *Forma de pago:* ${paymentLabel}\n💰 *Total:* ${formatCurrency(
     total
   )}\n\n🚚 *Método de Envío:* ${sendMethodLabel}\n\n📦 *_Mi pedido es_*\n\n*PRODUCTOS*\n${productList}\n\n📜 *Resumen de Costos:*\n- Subtotal: $${subtotal}\n- Descuento del ${
@@ -109,6 +116,7 @@ function generateWhatsAppMessage({
 
   // Enlace de WhatsApp
   const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+  console.log("Message->", message);
 
   return { message, whatsappLink };
 }
@@ -121,6 +129,7 @@ export default function CartDrawer({
   handleDelete,
   handleAdd,
   handleRemove,
+  saler
 }) {
   const [personalInformation, setPersonalInformation] = useState({
     name: "",
@@ -155,6 +164,7 @@ export default function CartDrawer({
       totalAmount,
       payMethod,
       sendMethod,
+      saler
     });
     Swal.fire({
       title: "¡Ya casi estamos!✨",
@@ -252,7 +262,7 @@ export default function CartDrawer({
           </IconButton>
         </Box>
         <Divider sx={{ my: 2 }} />
-        <List sx={{marginBottom: "40px"}}>
+        <List sx={{ marginBottom: "40px" }}>
           {Boolean(cart?.length > 0) ? (
             cart.map((item) => (
               <ListItem

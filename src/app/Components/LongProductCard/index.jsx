@@ -27,6 +27,7 @@ const LongProductCard = ({
   item,
   handleAdd,
   link,
+  saler,
 }) => {
   const router = useRouter();
 
@@ -44,7 +45,9 @@ const LongProductCard = ({
           variant="h5"
           component="div"
           sx={{ fontWeight: "bold", fontSize: "14px" }}
-          onClick={() => router.push(link)}
+          onClick={() =>
+            router.push(`${link}${saler ? `?saler=${saler}` : ""}`)
+          }
         >
           {title}
         </Typography>
@@ -52,7 +55,9 @@ const LongProductCard = ({
           variant="body2"
           color="text.secondary"
           sx={{ fontSize: "10px", maxWidth: "152px" }}
-          onClick={() => router.push(link)}
+          onClick={() =>
+            router.push(`${link}${saler ? `?saler=${saler}` : ""}`)
+          }
         >
           {description}
         </Typography>

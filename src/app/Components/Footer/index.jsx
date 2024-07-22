@@ -3,7 +3,7 @@ import { Box, Container, Typography, Link, IconButton } from "@mui/material";
 import { Instagram } from "@mui/icons-material";
 import Image from "next/image";
 
-const Footer = () => {
+const Footer = ({saler}) => {
   return (
     <Box
       component="footer"
@@ -14,15 +14,14 @@ const Footer = () => {
         textAlign: "center",
       }}
     >
-              <Image
-            src="/VskinsWhite.svg"
-            alt="Vskins Logo"
-            width={105}
-            height={37}
-            priority
-          />
+      <Image
+        src="/VskinsWhite.svg"
+        alt="Vskins Logo"
+        width={105}
+        height={37}
+        priority
+      />
       <Container maxWidth="lg">
-
         <Box
           sx={{
             display: "flex",
@@ -31,12 +30,26 @@ const Footer = () => {
             mb: 4,
           }}
         >
-        
-          <Box sx={{ display: "flex", justifyContent: "center", mb: 2, marginTop: "20px" }}>
-            <Link href="/productos/power-serum" underline="none" sx={{ mx: 1, color: "#fff" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              mb: 2,
+              marginTop: "20px",
+            }}
+          >
+            <Link
+              href={`/productos/power-serum${saler ? `?saler=${saler}` : ""}`}
+              underline="none"
+              sx={{ mx: 1, color: "#fff" }}
+            >
               Serum
             </Link>
-            <Link href="/productos/power-cream" underline="none" sx={{ mx: 1, color: "#fff" }}>
+            <Link
+              href={`/productos/power-cream${saler ? `?saler=${saler}` : ""}`}
+              underline="none"
+              sx={{ mx: 1, color: "#fff" }}
+            >
               Crema
             </Link>
           </Box>
@@ -50,7 +63,7 @@ const Footer = () => {
             </IconButton>
           </Box>
         </Box>
-        <Typography variant="body2" sx={{color: "#fff", fontWeight: 200}}>
+        <Typography variant="body2" sx={{ color: "#fff", fontWeight: 200 }}>
           © 2024 Vskins. All rights reserved.
         </Typography>
       </Container>
