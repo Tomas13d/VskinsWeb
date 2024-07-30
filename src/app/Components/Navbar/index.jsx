@@ -12,7 +12,7 @@ export default function PrimarySearchAppBar({
     <Box
       sx={{ flexGrow: 1, position: "fixed", zIndex: 10, top: 0, width: "100%" }}
     >
-      <AppBar position="static" sx={{ backgroundColor: "#fff", color: "#000" }}>
+      <AppBar position="static" sx={{ backgroundColor: "#000", color: "#fff", p:1 }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <IconButton
             size="large"
@@ -24,10 +24,10 @@ export default function PrimarySearchAppBar({
             <MenuIcon />
           </IconButton>
           <Image
-            src="/VskinsLogo.svg"
-            alt="Vskins Logo"
-            width={105}
-            height={37}
+            src="/tdshoesLogo.png"
+            alt="tdShoes"
+            width={37}
+            height={35}
             priority
           />
           <Box sx={{ display: { xs: "flex", md: "flex" } }}>
@@ -44,7 +44,7 @@ export default function PrimarySearchAppBar({
                 badgeContent={cartLength}
                 sx={{
                   "& .MuiBadge-badge": {
-                    backgroundColor: "#5B1546",
+                    backgroundColor: "#BAC61B",
                     color: "white",
                   },
                 }}

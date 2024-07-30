@@ -229,35 +229,42 @@ export default function ProductPage({ params }) {
                   fontWeight: 400,
                 }}
               >
-                Nuestras clientas
+                Lo que dicen sobre las zapas
               </Typography>
               <Carousel
                 images={product.testimoniesImages}
                 showThumbs={false}
-                showArrows={false}
-                arrowColors={{ color: "#fff", backgroundColor: "#691A52" }}
+                showArrows={true}
+                arrowColors={{ color: "#fff", backgroundColor: "#BAC61B" }}
               />
             </>
           )}
-
-          <Typography
-            variant="h5"
-            sx={{ marginBottom: "15px", marginTop: "40px", fontWeight: 400 }}
-          >
-            Nuestras clientas también llevan
-          </Typography>
-          {Boolean(product?.referedProduct?.length > 0) &&
-            product.referedProduct.map((item) => (
-              <LongProductCard
-                title={item.title}
-                image={item.img}
-                description={item.description}
-                item={item}
-                handleAdd={handleAdd}
-                link={item.link}
-                saler={saler}
-              />
-            ))}
+          {Boolean(product?.referedProduct?.length > 0) && (
+            <>
+              <Typography
+                variant="h5"
+                sx={{
+                  marginBottom: "15px",
+                  marginTop: "40px",
+                  fontWeight: 400,
+                }}
+              >
+                Tambien llevaron
+              </Typography>
+              {product.referedProduct.map((item) => (
+                <LongProductCard
+                  key={item.id}
+                  title={item.title}
+                  image={item.img}
+                  description={item.description}
+                  item={item}
+                  handleAdd={handleAdd}
+                  link={item.link}
+                  saler={saler}
+                />
+              ))}
+            </>
+          )}
         </Box>
         <Box sx={{ padding: "20px", marginBottom: "40px" }}>
           {product.productDetails.map((item) => (
@@ -268,7 +275,7 @@ export default function ProductPage({ params }) {
             />
           ))}
         </Box>
-        <Footer saler={saler}/>
+        <Footer saler={saler} />
       </ThemeProvider>
     </>
   );

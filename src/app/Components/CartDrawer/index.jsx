@@ -112,7 +112,7 @@ function generateWhatsAppMessage({
   const encodedMessage = encodeURIComponent(message);
 
   // Número de teléfono
-  const phoneNumber = "5493516500365";
+  const phoneNumber = "5493516368347";
 
   // Enlace de WhatsApp
   const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;

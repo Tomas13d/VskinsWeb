@@ -10,7 +10,7 @@ export default function AccordionUsage({ Icon, title, information }) {
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         {
           <Icon
-            sx={{ marginRight: "5px", fontSize: "20px", color: "#691A52" }}
+            sx={{ marginRight: "5px", fontSize: "20px", color: "#BAC61B" }}
           />
         }
         {title}

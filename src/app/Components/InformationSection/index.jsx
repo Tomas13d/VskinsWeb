@@ -48,7 +48,7 @@ export default function InformationSection({
       {haveRanking && (
         <Box display="flex" alignItems="center" my={1}>
           {[...Array(5)].map((_, i) => (
-            <StarIcon key={i} sx={{ color: "#691A52" }} />
+            <StarIcon key={i} sx={{ color: "#BAC61B" }} />
           ))}
           <Typography variant="body1" ml={1}>
             4.9
@@ -58,7 +58,7 @@ export default function InformationSection({
             component="a"
             href="#reseñas"
             ml={1}
-            sx={{ textDecoration: "underline", color: "#691A52" }}
+            sx={{ textDecoration: "underline", color: "#BAC61B" }}
           >
             Ver reseñas
           </Typography>

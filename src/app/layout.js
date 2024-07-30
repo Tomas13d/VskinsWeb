@@ -7,8 +7,8 @@ const inter = Montserrat({
 });
 
 export const metadata = {
-  title: "Vskins",
-  description: "Deja que tu piel hable por vos",
+  title: "TD Shoes 👟",
+  description: "Tu estilo, tus pasos.",
 };
 
 export default function RootLayout({ children }) {

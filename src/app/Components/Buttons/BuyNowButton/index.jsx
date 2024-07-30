@@ -10,10 +10,10 @@ const BuyNowButton = ({ text, type = "colored", handleBuyNow }) => {
       },
     },
     colored: {
-      backgroundColor: "#691A52",
+      backgroundColor: "#BAC61B",
       color: "#fff",
       "&:hover": {
-        backgroundColor: "#8A2C70",
+        backgroundColor: "#BAC61B",
       },
     },
   };
